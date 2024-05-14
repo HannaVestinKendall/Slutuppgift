@@ -1,0 +1,90 @@
+<html>
+<head>
+    <style>
+        body {
+            background: #d18989;
+        }
+        #output {
+            width: 500px;
+            background: #ecc7c7;
+            border: 8px solid #831010;
+            border-radius: 5px;;
+            margin: 40px auto;
+            padding: 15px;
+            font-family: monospace;
+            text-align: center;
+        }
+
+    </style>   
+</head>
+<body>
+    <input id="runNumber" style="border: 2px solid rgb(145, 18, 18)" /> <br>
+    <button id="guess">GISSA</button>
+    <div id="output"></div>
+    <script>   
+
+        // Färdiga funktioner som förenklar //
+        function print(text){
+            document.getElementById("output").innerHTML += text;
+        }
+
+        function newLine(){
+            document.getElementById("output").innerHTML += "<br>";
+        }       
+
+        let input = document.getElementById("runNumber");
+        let submit = document.getElementById("guess");
+        let minNum = 1;
+        let maxNum = 10;
+        let answer = Math.floor(Math.random() * (maxNum - minNum +1));
+        let attempts = 0;
+
+        // TEXTEN I RUTAN //
+        print("GISSA NUMRET!")
+        newLine()
+        newLine()
+        print("Välj ett nummer mellan " +minNum + " och " +maxNum)
+        newLine()
+        print("Jag kommer bara säga bara om talet är högre eller lägre,")
+        newLine()
+        print("skriv in talet och tryck sedan på Gissa.")
+        newLine()
+
+        // ON CLICK, KNAPP FUNKTION, NAR MAN TRYCKER PA GISSA KNAPPEN //
+        submit.onclick =function () {
+            let guess = Number(input.value);
+
+            if(isNaN(guess)){
+                newLine();
+                print("skriv ett nummer");
+            }
+            else if(guess < minNum || guess > maxNum){
+                newLine()
+                print("Skriv ett nummer inom " + minNum + " och " + maxNum); 
+            }
+            else {
+                attempts++;
+
+                if(guess < answer){
+                    newLine();
+                    print("Gissa ett högre nummer");
+
+                }  
+                else if (guess > answer) {
+                    newLine();
+                    print("Gissa ett lägre nummer");
+                
+                } else {
+                    newLine();
+                    print("Bra jobbat! Du gissade rätt efter " + attempts + " försök!");
+                    newLine();
+                    print("Gissa på ett nytt nummer");
+                    
+                    answer = Math.floor(Math.random() * (maxNum - minNum +1));    
+                    attempts = 0;
+                }            
+            }
+        }
+    </script>
+</body>
+</html>
